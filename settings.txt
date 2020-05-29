@@ -3,4 +3,6 @@ Email="s.jochman@gmail.com"
 FolderName="git_workspace"
 distro_install="apt install"
 distro_uninstall="apt purge"
+update="apt update" 
+upgrade="apt upgrade"
 
