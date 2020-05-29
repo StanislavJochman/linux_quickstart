@@ -2,6 +2,8 @@ source "settings.txt"
 sudo $distro_uninstall firefox -y
 sudo $distro_install chromium-browser
 sudo $distro_install curl
+sudo $distro_install sl
+sudo $distro_install neofetch -y
 chromium http://gmail.com/
 chromium http://facebook.com/
 chromium http://youtube.com/
