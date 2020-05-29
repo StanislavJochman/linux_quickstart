@@ -3,6 +3,7 @@ sudo $update
 sudo $upgrade
 sudo $distro_uninstall firefox -y
 sudo $distro_install chromium-browser
+sudo $distro_install libcanberra-gtk-module libcanberra-gtk3-module
 sudo $distro_install curl
 sudo $distro_install sl
 sudo $distro_install neofetch -y
