@@ -3,13 +3,10 @@ sudo $update
 sudo $upgrade
 sudo $distro_uninstall firefox -y
 sudo $distro_install chromium-browser
-sudo $distro_install libcanberra-gtk-module libcanberra-gtk3-module
 sudo $distro_install curl
 sudo $distro_install sl
 sudo $distro_install neofetch -y
-chromium http://gmail.com/
-chromium http://facebook.com/
-chromium http://youtube.com/
+chromium http://gmail.com/ http://facebook.com/ http://youtube.com/ </dev/null >/dev/null 2>&1 & disown
 sudo $distro_install gimp -y
 sudo $distro_install snap
 sudo snap install --classic code
