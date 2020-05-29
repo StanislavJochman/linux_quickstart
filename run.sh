@@ -1,4 +1,6 @@
 source "settings.txt"
+sudo $update
+sudo $upgrade
 sudo $distro_uninstall firefox -y
 sudo $distro_install chromium-browser
 sudo $distro_install curl
