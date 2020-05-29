@@ -8,6 +8,7 @@ chromium http://youtube.com/
 sudo $distro_install gimp -y
 sudo $distro_install snap
 sudo snap install --classic code
+sudo snap install arduino
 sudo $distro_install git -y
 sudo $distro_install vlc -y
 sudo $distro_install telegram-desktop -y
