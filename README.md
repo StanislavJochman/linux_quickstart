@@ -25,6 +25,8 @@ This installer was developed to speed up setup process of any distro of linux. Y
 * ```Kde connect ```
 * ```xclip ```
 
+## Programs uninstalled by this installer
+* ```Mozila Firefox```
 
 ### How to run script
 1. Edit ```settings.txt``` for your distro options, package manager options and your git credentials
