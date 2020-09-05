@@ -15,6 +15,10 @@ sudo $distro_install git -y
 sudo $distro_install vlc -y
 sudo $distro_install telegram-desktop -y
 sudo $distro_install kdeconnect -y
+sudo $distro_install discord -y
+sudo $distro_install telegram-desktop -y
+sudo $distro_install yakuake -y
 sudo $distro_install xclip -y
+
 chmod +x git_setup.sh
 ./git_setup.sh
