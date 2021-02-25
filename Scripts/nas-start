@@ -1,0 +1,3 @@
+#!/bin/bash
+curl http://nas_esp/NasToggle > /dev/null
+ 
