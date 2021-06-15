@@ -1,6 +1,7 @@
 source "settings.txt"
 git config --global user.name $Name
 git config --global user.email $Email
+git config --global commit.gpgsign true
 mkdir ~/$FolderName
 ssh-keygen -t rsa -b 4096 -C $Email
 chromium http://github.com/ </dev/null >/dev/null 2>&1 & disown
