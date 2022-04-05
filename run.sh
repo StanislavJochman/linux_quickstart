@@ -20,6 +20,8 @@ sudo $distro_install telegram-desktop -y
 sudo $distro_install yakuake -y
 sudo $distro_install xclip -y
 sudo $distro_install build-essential -y
-
+sudo usermod -a -G tty stanley
 chmod +x git_setup.sh
 ./git_setup.sh
+
+
