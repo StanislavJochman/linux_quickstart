@@ -32,3 +32,4 @@ This installer was developed to speed up setup process of any distro of linux. Y
 1. Edit ```settings.txt``` for your distro options, package manager options and your git credentials
 1. Make ```run.sh``` executable using terminal command in folder containing script with command ```chmod x run.sh```
 1. Execute ```run.sh``` using terminal command in folder containing script with command ```./run.sh```
+
