@@ -1,0 +1,7 @@
+#!/bin/bash
+cd /srv/dev-disk-by-uuid-2af263fc-cdab-4d80-80d7-813524c8a4ba/Data/
+find . -name ".DS_Store" -print -delete
+find . -name "._.DS_Store" -print -delete
+cd /srv/dev-disk-by-uuid-fd1dcd8b-3818-476b-89d9-d3480c8db7e6/BackupRaid
+find . -name ".DS_Store" -print -delete
+find . -name "._.DS_Store" -print -delete
