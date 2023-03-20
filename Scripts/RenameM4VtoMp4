@@ -1,0 +1,18 @@
+#!/bin/bash
+echo $PWD
+for f in *.m4v; do
+    mv -- "$f" "${f%.m4v}.mp4"
+    echo "$f"
+done
+for f in *.M4V; do
+    mv -- "$f" "${f%.M4V}.mp4"
+    echo "$f"
+done
+for f in *.M4v; do
+    mv -- "$f" "${f%.M4v}.mp4"
+    echo "$f"
+done
+for f in *.m4V; do
+    mv -- "$f" "${f%.m4V}.mp4"
+    echo "$f"
+done
