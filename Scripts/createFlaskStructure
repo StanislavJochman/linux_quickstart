@@ -14,7 +14,7 @@ COPY requirements.txt /tmp/requirements.txt
 RUN pip install --upgrade pip --break-system-packages
 RUN pip3 install -r /tmp/requirements.txt --break-system-packages
 
-RUN mkdir -m 777 /tmp/NUMBA_CACHE_DIR /tmp/MPLCONFIGDIR
+RUN mkdir -p -m 777 /tmp/NUMBA_CACHE_DIR /tmp/MPLCONFIGDIR
 ENV NUMBA_CACHE_DIR=/tmp/NUMBA_CACHE_DIR/
 ENV MPLCONFIGDIR=/tmp/MPLCONFIGDIR/
 
@@ -34,10 +34,10 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 RUN service apache2 restart
 '
 
-docker_composefile_content='"version: \"3\"
+docker_composefile_content='version: "3"
 services:
-    ${web_service_name}:
-        image: ${web_service_name}:prod
+    app:
+        image: app:prod
         build:
             context: .
             dockerfile: Dockerfile
@@ -48,12 +48,12 @@ services:
         ports:
             - 6969:80
         networks:
-            - ${web_service_name}-default
+            - app-default
 
 networks:
-    ${web_service_name}-default:
-        name: ${web_service_name}-default
-        driver: bridge"'
+    app-default:
+        name: app-default
+        driver: bridge'
 
 
 
@@ -63,12 +63,10 @@ touch README.md
 
 echo "$dockerfile_content" > Dockerfile
 
-read -p "Enter the new service name: " web_service_name
-
 echo "$docker_composefile_content" > docker-compose.yml
 
-mkdir config/
-mkdir config/sites-available
+mkdir -p config/
+mkdir -p config/sites-available
 echo '<VirtualHost *:80>
     ServerName tinynas.local
     ServerAdmin s.jochman@gmail.com
@@ -88,8 +86,8 @@ echo '<VirtualHost *:80>
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>' > config/sites-available/App.conf
 
-mkdir App
-mkdir App/App
+mkdir -p App
+mkdir -p App/App
 touch App/App/__init__.py
 touch App/App/main.py
 echo '#!/usr/bin/python
@@ -106,7 +104,8 @@ export FLASK_APP=main.py
 export FLASK_ENV=development
 python3 -m flask run" > App/App/runlocal.sh
 
-mkdir App/App/static
-mkdir App/App/templates
+mkdir -p App/App/static
+mkdir -p App/App/static/css
+mkdir -p App/App/templates
 touch App/App/templates/index.html
-mkdir App/App/static/css
+touch App/App/static/css/style.css
