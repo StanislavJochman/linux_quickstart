@@ -104,6 +104,8 @@ export FLASK_APP=main.py
 export FLASK_ENV=development
 python3 -m flask run" > App/App/runlocal.sh
 
+chmod +x App/App/runlocal.sh
+
 mkdir -p App/App/static
 mkdir -p App/App/static/css
 mkdir -p App/App/templates
