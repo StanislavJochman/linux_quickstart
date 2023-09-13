@@ -1,0 +1,97 @@
+#!/bin/bash
+
+touch requirements.txt
+touch .gitignore
+touch README.md
+echo 'FROM ubuntu/apache2:latest
+
+EXPOSE 80
+
+USER 0
+
+RUN apt update && apt upgrade -y && apt update --fix-missing
+
+RUN apt install -y python3 python3-pip libexpat1 apache2-utils ssl-cert python-dev-is-python3 libapache2-mod-wsgi-py3 python3.11-venv
+
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install --upgrade pip --break-system-packages
+RUN pip3 install -r /tmp/requirements.txt --break-system-packages
+
+RUN mkdir -m 777 /tmp/NUMBA_CACHE_DIR /tmp/MPLCONFIGDIR
+ENV NUMBA_CACHE_DIR=/tmp/NUMBA_CACHE_DIR/
+ENV MPLCONFIGDIR=/tmp/MPLCONFIGDIR/
+
+USER 1000
+
+COPY config/sites-available/ /etc/apache2/sites-available
+COPY App/ /var/www/App
+USER 0
+RUN chown -R www-data:www-data /var/www/App
+
+RUN a2enmod wsgi
+
+RUN a2ensite App
+
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+RUN service apache2 restart
+'> Dockerfile
+
+read -p "Enter the new service name: " web_service_name
+
+echo '"version: \"3\"
+services:
+    ${web_service_name}:
+        image: ${web_service_name}:prod
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        volumes:
+            - ./config/sites-available:/etc/apache2/sites-available
+            - ./logs:/var/log/apache2
+        ports:
+            - 6969:80
+        networks:
+            - ${web_service_name}-default
+
+networks:
+    ${web_service_name}-default:
+        name: ${web_service_name}-default
+        driver: bridge"' > docker-compose.yml
+
+mkdir config/
+mkdir config/sites-available
+echo '<VirtualHost *:80>
+    ServerName tinynas.local
+    ServerAdmin s.jochman@gmail.com
+    WSGIScriptAlias / /var/www/App/App.wsgi
+    WSGIDaemonProcess app python-path=/var/www/App/App
+    <Directory /var/www/App/App/>
+        Order allow,deny
+        Allow from all
+    </Directory>
+    Alias /static /var/www/App/App/static
+    <Directory /var/www/App/App/static/>
+        Order allow,deny
+        Allow from all
+    </Directory>
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    LogLevel warn
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>' > config/sites-available/App.conf
+
+mkdir App
+mkdir App/App
+touch App/App/__init__.py
+touch App/App/main.py
+echo '#!/usr/bin/python
+import sys
+import logging
+logging.basicConfig(stream=sys.stderr)
+sys.path.insert(0,"/var/www/App/")
+
+from App.main import app as application
+application.secret_key = "12345678"' > App/App.wsgi
+
+touch App/App/runlo
