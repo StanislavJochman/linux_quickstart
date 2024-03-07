@@ -1,0 +1,2 @@
+#!/bin/bash
+cat /dev/urandom | gzip > /dev/null & cat /dev/urandom | gzip > /dev/null & cat /dev/urandom | gzip > /dev/null & cat /dev/urandom | gzip > /dev/null & cat /dev/urandom | gzip > /dev/null & cat /dev/urandom | gzip > /dev/null

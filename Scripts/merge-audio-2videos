@@ -1,0 +1,1 @@
+ffmpeg -i file1.mp4 -i file2.mp4 -map 1 -map 0:a -c copy output.mp4
