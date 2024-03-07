@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "New series name: "
+read name
+echo "Season count: "
+read season
+
+for (( i=1; i<=$season; i++ ))
+do
+  if [ $i -lt 10 ]
+  then
+    mkdir -p "$name/Season 0$i"
+  else
+    mkdir -p "$name/Season $i"
+  fi
+done
