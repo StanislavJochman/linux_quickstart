@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ $# -lt 3 ]; then
+    echo "Usage: addLanguages <input_file> <title> <language1> [language2]"
+    exit 1
+fi
+
+base_name=$(basename "$1" | sed 's/\.[^.]*$//')
+
+output_file="${base_name}-language.${1##*.}"
+
+if [ $# -eq 3 ]; then
+    ffmpeg -i "$1" -c copy -metadata title="$2" -map 0 -metadata:s:a:0 language="$3" -metadata:s:a:0 handler_name="Track 1" "$output_file"
+else
+    ffmpeg -i "$1" -c copy -metadata title="$2" -map 0 -metadata:s:a:0 language="$3" -metadata:s:a:1 language="$4" "$output_file"
+fi
