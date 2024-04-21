@@ -9,4 +9,11 @@ base_name=$(basename "$1" | sed 's/\.[^.]*$//')
 
 output_file="${base_name}-out.${1##*.}"
 
-ffmpeg -i "$1" -i "$2" -map 0 -map 1:a -c copy "$output_file"
+#ffmpeg -i "$1" -i "$2" -map 0 -map 1:a -c copy "$output_file"
+delay_ms=$(echo "0.8 * 1000" | bc)
+ffmpeg -i "$1" -i "$2" -filter_complex "[1:a]adelay=${delay_ms}|${delay_ms}[a1]" -map 0:v -map 0:a -map "[a1]" -c:v copy -c:a aac "$output_file"
+
+
+
+#delay_ms=24000
+#ffmpeg -i "$1" -i "$2" -filter_complex "[0:a]adelay=${delay_ms}|${delay_ms}[a0];[1:a][a0]amix=inputs=2[a1]" -map 0:v -map "[a1]" -c:v copy -c:a aac "$output_file"

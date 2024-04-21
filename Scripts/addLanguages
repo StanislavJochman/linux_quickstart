@@ -10,7 +10,7 @@ base_name=$(basename "$1" | sed 's/\.[^.]*$//')
 output_file="${base_name}-language.${1##*.}"
 
 if [ $# -eq 3 ]; then
-    ffmpeg -i "$1" -c copy -metadata title="$2" -map 0 -metadata:s:a:0 language="$3" -metadata:s:a:0 handler_name="Track 1" "$output_file"
+    ffmpeg -i "$1" -c copy -metadata title="$2" -map 0 -metadata:s:a:0 language="$3" -map_metadata -1 "$output_file"
 else
-    ffmpeg -i "$1" -c copy -metadata title="$2" -map 0 -metadata:s:a:0 language="$3" -metadata:s:a:1 language="$4" "$output_file"
+    ffmpeg -i "$1" -c copy -metadata title="$2" -map 0 -metadata:s:a:0 language="$3" -metadata:s:a:1 language="$4" -map_metadata -1 "$output_file"
 fi
