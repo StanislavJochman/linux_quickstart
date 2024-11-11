@@ -21,6 +21,7 @@ with open(".converted", "w") as f:
             if extension in file:
                 f.write(file)
                 f.write("\n")
+                break
 
 with open(".converted", "r") as f:
     for line in f:
